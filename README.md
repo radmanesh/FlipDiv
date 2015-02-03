@@ -137,6 +137,10 @@ meny.addEventListener( 'closed', function() {
 
 ## History
 
+#### 1.5.0
+- Fix cover's glitch on resizing
+- Add menu element's `z-index` property to css
+
 #### 1.4.0
 - Adds `opened` and `closed` events
 - Adds `destroy` API method

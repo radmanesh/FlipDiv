@@ -1,5 +1,5 @@
 /*!
- * meny 1.4
+ * meny 1.5
  * http://lab.hakim.se/meny
  * MIT licensed
  *
@@ -7,13 +7,13 @@
  */
 
 (function( root, factory ) {
-    if( typeof define === 'function' && define.amd ) {
-        // AMD module
-        define( factory );
-    } else {
-        // Browser global
-        root.Meny = factory();
-    }
+	if( typeof define === 'function' && define.amd ) {
+		// AMD module
+		define( factory );
+	} else {
+		// Browser global
+		root.Meny = factory();
+	}
 }(this, function () {
 
 // Date.now polyfill
