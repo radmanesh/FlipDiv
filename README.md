@@ -84,7 +84,7 @@ var flipDivMenu = FlipDiv.create({
 A few handy methods API methods are included, you call these on the instance returned by ```FlipDiv.create``` (see above).
 
 ```javascript
-flipDivMenu.configure({ mouse: false }); // change settings after initialization
+flipDivMenu.configure({ mouse: false }) // change settings after initialization
 
 flipDivMenu.open()
 
