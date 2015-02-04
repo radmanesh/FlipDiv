@@ -77,7 +77,7 @@ var flipDivMenu = FlipDiv.create({
 
 	// Use touch swipe events to open/close
 	, touch: true
-});
+})
 ```
 
 ### 4. API & Events
@@ -86,13 +86,13 @@ A few handy methods API methods are included, you call these on the instance ret
 ```javascript
 flipDivMenu.configure({ mouse: false }); // change settings after initialization
 
-flipDivMenu.open();
+flipDivMenu.open()
 
-flipDivMenu.close();
+flipDivMenu.close()
 
-flipDivMenu.isOpen(); // true/false
+flipDivMenu.isOpen() // true/false
 
-flipDivMenu.destroy(); // revert original DOM state, unbind events
+flipDivMenu.destroy() // revert original DOM state, unbind events
 ```
 
 The wrapper element (parent of the **menu** and **contents**) is decorated with classes based on its state:
@@ -109,29 +109,29 @@ Instances of FlipDiv dispatch events to notify you of their state:
 ```javascript
 var flipDivMenu = FlipDiv.create( ... ) // see 3. Initialize
 
-flipDivMenu.addEventListener( 'open', function() {
+flipDivMenu.addEventListener('open', function() {
 
 	// do something on open
 
-} );
+})
 
-flipDivMenu.addEventListener( 'close', function() {
+flipDivMenu.addEventListener('close', function() {
 
 	// do something on close
 
-} );
+})
 
-flipDivMenu.addEventListener( 'opened', function() {
+flipDivMenu.addEventListener('opened', function() {
 
 	// do something right after FlipDiv is opened and transitions finished
 
-} );
+})
 
-flipDivMenu.addEventListener( 'closed', function() {
+flipDivMenu.addEventListener('closed', function() {
 
 	// do something right after FlipDiv is closed and transitions finished
 
-} );
+})
 ```
 
 ## Credits
