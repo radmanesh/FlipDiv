@@ -1,29 +1,31 @@
 {
-	"name": "Menu",
-	"main": "js/meny.js",
-	"version": "1.5.0",
-	"description": "A three dimensional and space effecient menu.",
-	"homepage": "http://lab.hakim.se/meny/",
-	"author": {
-		"name": "Hakim El Hattab",
-		"email": "hakim.elhattab@gmail.com",
-		"url": "http://hakim.se"
-	},
-	"repositories": [
+	"name": "FlipDiv"
+	, "main": "dist/FlipDiv.js"
+	, "version": "1.5.0"
+	, "description": "A space efficient 3D menu with CSS transitions."
+	, "homepage": "http://kireerik.github.io/FlipDiv/demo/"
+	, "author": {
+		"name": "Erik Engi"
+		, "email": "kireerike@gmail.com"
+	}
+	, "repositories": [
 		{
-			"type": "git",
-			"url": "git://github.com/kireerik/Menu"
+			"type": "git"
+			, "url": "git://github.com/kireerik/FlipDiv"
 		}
-	],
-	"licenses": [
+	]
+	, "licenses": [
 		{
-			"type": "MIT",
-			"url": "https://github.com/kireerik/Menu/blob/master/LICENSE"
+			"type": "MIT"
+			, "url": "https://github.com/kireerik/FlipDiv/blob/master/LICENSE"
 		}
-	],
-	"keywords": [
-		"menu",
-		"meny",
-		"3d"
+	]
+	, "keywords": [
+		"FlipDiv"
+		, "menu"
+		, "meny"
+		, "3d"
+		, "flip"
+		, "div"
 	]
 }
