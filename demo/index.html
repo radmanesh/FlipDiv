@@ -15,9 +15,10 @@
 		<script type="text/javascript" src="http://platform.twitter.com/widgets.js" async defer></script>
 		<script src="../dist/FlipDiv.js"></script>
 		<script>
+			var flipDivMenu
 			window.onload = function(){
 				// Create an instance of FlipDiv
-				var flipDivMenu = FlipDiv.create({
+				flipDivMenu = FlipDiv.create({
 					// The element that will be animated in from off screen
 					menuElement: document.querySelector( '.flipDiv' )
 

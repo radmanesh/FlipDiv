@@ -198,7 +198,8 @@
 				function setupWrapper() {
 					// Add a class to allow for custom styles based on
 					// position
-					FlipDiv.addClass(dom.wrapper, 'flipDiv-' + config.position)
+					if (!FlipDiv.hasClass(dom.wrapper, 'flipDiv-' + config.position))
+						FlipDiv.addClass(dom.wrapper, 'flipDiv-' + config.position)
 
 					originalStyles.wrapper = dom.wrapper.style.cssText
 
@@ -716,6 +717,13 @@
 			}
 
 			return property
+		}
+
+		/**
+		 * Checks wether the target element has a class.
+		 */
+		, hasClass: function(element, name) {
+			return element.className.search(name) != -1
 		}
 
 		/**
