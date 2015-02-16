@@ -8,17 +8,14 @@
  */
 
 (function(root, factory) {
-	if(typeof define === 'function' && define.amd) {
-		// AMD module
-		define(factory)
-	} else {
-		// Browser global
-		root.FlipDiv = factory()
-	}
+	if (typeof define === 'function' && define.amd)
+		define(factory) // AMD module
+	else
+		root.FlipDiv = factory() // Browser global
 }(this, function () {
 
 	// Date.now polyfill
-	if(typeof Date.now !== 'function') Date.now = function() { return new Date().getTime(); }
+	if (typeof Date.now !== 'function') Date.now = function() { return new Date().getTime(); }
 
 	var FlipDiv = {
 
@@ -27,14 +24,12 @@
 			return (function(){
 
 				// Make sure the required arguments are defined
-				if(!options || !options.menuElement || !options.contentsElement) {
+				if (!options || !options.menuElement || !options.contentsElement)
 					throw 'You need to specify which menu and contents elements to use.'
-				}
 
 				// Make sure the menu and contents have the same parent
-				if(options.menuElement.parentNode !== options.contentsElement.parentNode) {
+				if (options.menuElement.parentNode !== options.contentsElement.parentNode)
 					throw 'The menu and contents elements must have the same parent.'
-				}
 
 				// Constants
 				var POSITION_T = 'top'
@@ -43,11 +38,11 @@
 				, POSITION_L = 'left'
 
 				// Feature detection for 3D transforms
-				, supports3DTransforms = 'WebkitPerspective' in document.body.style ||
-										'MozPerspective' in document.body.style ||
-										'msPerspective' in document.body.style ||
-										'OPerspective' in document.body.style ||
-										'perspective' in document.body.style
+				, supports3DTransforms = 'WebkitPerspective' in document.body.style
+										|| 'MozPerspective' in document.body.style
+										|| 'msPerspective' in document.body.style
+										|| 'OPerspective' in document.body.style
+										|| 'perspective' in document.body.style
 
 				// Default options, gets extended by passed in arguments
 				, config = {
@@ -212,9 +207,8 @@
 				 * FlipDiv is open.
 				 */
 				function setupCover() {
-					if(dom.cover) {
+					if (dom.cover)
 						dom.cover.parentNode.removeChild(dom.cover)
-					}
 
 					dom.cover = document.createElement('div')
 
@@ -235,12 +229,10 @@
 						dom.cover.style.background = '-ms-linear-gradient('+ config.position +','+ config.gradient
 						dom.cover.style.background = '-moz-linear-gradient('+ config.position +','+ config.gradient
 						dom.cover.style.background = '-webkit-linear-gradient('+ config.position +','+ config.gradient
-					}
-					catch(e) {}
+					} catch(e) {}
 
-					if(supports3DTransforms) {
+					if (supports3DTransforms)
 						dom.cover.style[ FlipDiv.prefix('transition') ] = 'all ' + config.transitionDuration +' '+ config.transitionEasing
-					}
 
 					dom.contents.appendChild(dom.cover)
 				}
@@ -256,24 +248,24 @@
 						case POSITION_T:
 							style.width = '100%'
 							style.height = config.height + 'px'
-							break
+						break
 
 						case POSITION_R:
 							style.right = '0'
 							style.width = config.width + 'px'
 							style.height = '100%'
-							break
+						break
 
 						case POSITION_B:
 							style.bottom = '0'
 							style.width = '100%'
 							style.height = config.height + 'px'
-							break
+						break
 
 						case POSITION_L:
 							style.width = config.width + 'px'
 							style.height = '100%'
-							break
+						break
 					}
 
 					originalStyles.menu = style.cssText
@@ -281,14 +273,12 @@
 					style.position = 'fixed'
 					style.display = 'block'
 
-					if(supports3DTransforms) {
+					if (supports3DTransforms) {
 						style[ FlipDiv.prefix('transform') ] = menuTransformClosed
 						style[ FlipDiv.prefix('transformOrigin') ] = menuTransformOrigin
 						style[ FlipDiv.prefix('transition') ] = 'all ' + config.transitionDuration +' '+ config.transitionEasing
-					}
-					else {
+					} else
 						FlipDiv.extend(style, menuStyleClosed)
-					}
 				}
 
 				/**
@@ -301,12 +291,11 @@
 
 					originalStyles.contents = style.cssText
 
-					if(supports3DTransforms) {
+					if (supports3DTransforms) {
 						style[ FlipDiv.prefix('transform') ] = contentsTransformClosed
 						style[ FlipDiv.prefix('transformOrigin') ] = contentsTransformOrigin
 						style[ FlipDiv.prefix('transition') ] = 'all ' + config.transitionDuration +' '+ config.transitionEasing
-					}
-					else {
+					} else {
 						style.position = style.position.match(/relative|absolute|fixed/gi) ? style.position : 'relative'
 						FlipDiv.extend(style, contentsStyleClosed)
 					}
@@ -317,23 +306,20 @@
 				 */
 				function bindEvents() {
 
-					if('ontouchstart' in window) {
-						if(config.touch) {
+					if ('ontouchstart' in window)
+						if (config.touch) {
 							FlipDiv.bindEvent(document, 'touchstart', onTouchStart)
 							FlipDiv.bindEvent(document, 'touchend', onTouchEnd)
-						}
-						else {
+						} else {
 							FlipDiv.unbindEvent(document, 'touchstart', onTouchStart)
 							FlipDiv.unbindEvent(document, 'touchend', onTouchEnd)
 						}
-					}
 
-					if(config.mouse) {
+					if (config.mouse) {
 						FlipDiv.bindEvent(document, 'mousedown', onMouseDown)
 						FlipDiv.bindEvent(document, 'mouseup', onMouseUp)
 						FlipDiv.bindEvent(document, 'mousemove', onMouseMove)
-					}
-					else {
+					} else {
 						FlipDiv.unbindEvent(document, 'mousedown', onMouseDown)
 						FlipDiv.unbindEvent(document, 'mouseup', onMouseUp)
 						FlipDiv.unbindEvent(document, 'mousemove', onMouseMove)
@@ -344,7 +330,7 @@
 				 * Expands the menu.
 				 */
 				function open() {
-					if(!isOpen) {
+					if (!isOpen) {
 						isOpen = true
 
 						FlipDiv.addClass(dom.wrapper, 'flipDiv-active')
@@ -352,7 +338,7 @@
 						dom.cover.style.visibility = 'visible'
 
 						// Use transforms and transitions if available...
-						if(supports3DTransforms) {
+						if (supports3DTransforms) {
 							// 'webkitAnimationEnd oanimationend msAnimationEnd animationend transitionend'
 							FlipDiv.bindEventOnce(dom.wrapper, 'transitionend', function() {
 								FlipDiv.dispatchEvent(dom.menu, 'opened')
@@ -362,9 +348,8 @@
 
 							dom.contents.style[ FlipDiv.prefix('transform') ] = contentsTransformOpened
 							dom.menu.style[ FlipDiv.prefix('transform') ] = menuTransformOpened
-						}
-						// ...fall back on JS animation
-						else {
+						} else {
+							// ...fall back on JS animation
 							menuAnimation && menuAnimation.stop()
 							menuAnimation = FlipDiv.animate(dom.menu, menuStyleOpened, 500)
 							contentsAnimation && contentsAnimation.stop()
@@ -381,13 +366,13 @@
 				 * Collapses the menu.
 				 */
 				function close() {
-					if(isOpen) {
+					if (isOpen) {
 						isOpen = false
 
 						FlipDiv.removeClass(dom.wrapper, 'flipDiv-active')
 
 						// Use transforms and transitions if available...
-						if(supports3DTransforms) {
+						if (supports3DTransforms) {
 							// 'webkitAnimationEnd oanimationend msAnimationEnd animationend transitionend'
 							FlipDiv.bindEventOnce(dom.wrapper, 'transitionend', function() {
 								FlipDiv.dispatchEvent(dom.menu, 'closed')
@@ -398,9 +383,8 @@
 
 							dom.contents.style[ FlipDiv.prefix('transform') ] = contentsTransformClosed
 							dom.menu.style[ FlipDiv.prefix('transform') ] = menuTransformClosed
-						}
-						// ...fall back on JS animation
-						else {
+						} else {
+							// ...fall back on JS animation
 							menuAnimation && menuAnimation.stop()
 							menuAnimation = FlipDiv.animate(dom.menu, menuStyleClosed, 500)
 							contentsAnimation && contentsAnimation.stop()
@@ -424,9 +408,8 @@
 					dom.menu.style.cssText = originalStyles.menu
 					dom.contents.style.cssText = originalStyles.contents
 
-					if(dom.cover && dom.cover.parentNode) {
+					if (dom.cover && dom.cover.parentNode)
 						dom.cover.parentNode.removeChild(dom.cover)
-					}
 
 					FlipDiv.unbindEvent(document, 'touchstart', onTouchStart)
 					FlipDiv.unbindEvent(document, 'touchend', onTouchEnd)
@@ -434,9 +417,8 @@
 					FlipDiv.unbindEvent(document, 'mouseup', onMouseUp)
 					FlipDiv.unbindEvent(document, 'mousemove', onMouseMove)
 
-					for(var i in addedEventListeners) {
+					for (var i in addedEventListeners)
 						this.removeEventListener(addedEventListeners[i][0], addedEventListeners[i][1])
-					}
 
 					addedEventListeners = []
 				}
@@ -451,48 +433,40 @@
 				function onMouseMove(event) {
 					// Prevent opening/closing when mouse is down since
 					// the user may be selecting text
-					if(!isMouseDown) {
+					if (!isMouseDown) {
 						var x = event.clientX - indentX
 						, y = event.clientY - indentY
 
 						switch(config.position) {
 							case POSITION_T:
-								if(y > config.height) {
+								if (y > config.height)
 									close()
-								}
-								else if(y < config.threshold) {
+								else if (y < config.threshold)
 									open()
-								}
-								break
+							break
 
 							case POSITION_R:
 								var w = dom.wrapper.offsetWidth
-								if(x < w - config.width) {
+								if (x < w - config.width)
 									close()
-								}
-								else if(x > w - config.threshold) {
+								else if (x > w - config.threshold)
 									open()
-								}
-								break
+							break
 
 							case POSITION_B:
 								var h = dom.wrapper.offsetHeight
-								if(y < h - config.height) {
+								if (y < h - config.height)
 									close()
-								}
-								else if(y > h - config.threshold) {
+								else if (y > h - config.threshold)
 									open()
-								}
-								break
+							break
 
 							case POSITION_L:
-								if(x > config.width) {
+								if (x > config.width)
 									close()
-								}
-								else if(x < config.threshold) {
+								else if (x < config.threshold)
 									open()
-								}
-								break
+							break
 						}
 					}
 				}
@@ -518,35 +492,28 @@
 
 					// Check for swipe gestures in any direction
 
-					if(Math.abs(touchMoveX - touchStartX) > Math.abs(touchMoveY - touchStartY)) {
-						if(touchMoveX < touchStartX - config.threshold) {
+					if (Math.abs(touchMoveX - touchStartX) > Math.abs(touchMoveY - touchStartY)) {
+						if (touchMoveX < touchStartX - config.threshold)
 							swipeMethod = onSwipeRight
-						}
-						else if(touchMoveX > touchStartX + config.threshold) {
+						else if (touchMoveX > touchStartX + config.threshold)
 							swipeMethod = onSwipeLeft
-						}
-					}
-					else {
-						if(touchMoveY < touchStartY - config.threshold) {
+					} else {
+						if (touchMoveY < touchStartY - config.threshold)
 							swipeMethod = onSwipeDown
-						}
-						else if(touchMoveY > touchStartY + config.threshold) {
+						else if (touchMoveY > touchStartY + config.threshold)
 							swipeMethod = onSwipeUp
-						}
 					}
 
-					if(swipeMethod && swipeMethod()) {
+					if (swipeMethod && swipeMethod())
 						event.preventDefault()
-					}
 				}
 
 				function onTouchEnd(event) {
 					FlipDiv.unbindEvent(document, 'touchmove', onTouchMove)
 
 					// If there was no movement this was a tap
-					if(touchMoveX === null && touchMoveY === null) {
+					if (touchMoveX === null && touchMoveY === null)
 						onTap()
-					}
 				}
 
 				function onTap() {
@@ -555,50 +522,45 @@
 										(config.position === POSITION_B && touchStartY < dom.wrapper.offsetHeight - config.height) ||
 										(config.position === POSITION_L && touchStartX > config.width)
 
-					if(isOverContent) {
+					if (isOverContent)
 						close()
-					}
 				}
 
 				function onSwipeLeft() {
-					if(config.position === POSITION_R && isOpen) {
+					if (config.position === POSITION_R && isOpen) {
 						close()
 						return true
-					}
-					else if(config.position === POSITION_L && !isOpen) {
+					} else if (config.position === POSITION_L && !isOpen) {
 						open()
 						return true
 					}
 				}
 
 				function onSwipeRight() {
-					if(config.position === POSITION_R && !isOpen) {
+					if (config.position === POSITION_R && !isOpen) {
 						open()
 						return true
-					}
-					else if(config.position === POSITION_L && isOpen) {
+					} else if (config.position === POSITION_L && isOpen) {
 						close()
 						return true
 					}
 				}
 
 				function onSwipeUp() {
-					if(config.position === POSITION_B && isOpen) {
+					if (config.position === POSITION_B && isOpen) {
 						close()
 						return true
-					}
-					else if(config.position === POSITION_T && !isOpen) {
+					} else if (config.position === POSITION_T && !isOpen) {
 						open()
 						return true
 					}
 				}
 
 				function onSwipeDown() {
-					if(config.position === POSITION_B && !isOpen) {
+					if (config.position === POSITION_B && !isOpen) {
 						open()
 						return true
-					}
-					else if(config.position === POSITION_T && isOpen) {
+					} else if (config.position === POSITION_T && isOpen) {
 						close()
 						return true
 					}
@@ -642,13 +604,12 @@
 				var interpolations = {}
 
 				// Format properties
-				for(var p in properties) {
+				for (var p in properties)
 					interpolations[p] = {
 						start: parseFloat(element.style[p]) || 0
 						, end: parseFloat(properties[p])
 						, unit: (typeof properties[p] === 'string' && properties[p].match(/px|em|%/gi)) ? properties[p].match(/px|em|%/gi)[0] : ''
 					}
-				}
 
 				var animationStartTime = Date.now()
 				, animationTimeout
@@ -659,15 +620,14 @@
 					var progress = 1 - Math.pow(1 - ((Date.now() - animationStartTime) / duration), 5)
 
 					// Set style to interpolated value
-					for(var p in interpolations) {
+					for (var p in interpolations) {
 						var property = interpolations[p]
 						element.style[p] = property.start + ((property.end - property.start) * progress) + property.unit
 					}
 
 					// Continue as long as we're not done
-					if(progress < 1) {
+					if (progress < 1)
 						animationTimeout = setTimeout(step, 1000 / 60)
-					}
 					else {
 						callback && callback()
 						stop()
@@ -696,9 +656,8 @@
 		 * If there's a conflict, object b takes precedence.
 		 */
 		, extend: function(a, b) {
-			for(var i in b) {
+			for (var i in b)
 				a[ i ] = b[ i ]
-			}
 		}
 
 		/**
@@ -708,12 +667,11 @@
 			var propertyUC = property.slice(0, 1).toUpperCase() + property.slice(1)
 			, vendors = [ 'Webkit', 'Moz', 'O', 'ms' ]
 
-			for(var i = 0, len = vendors.length; i < len; i++) {
+			for (var i = 0, len = vendors.length; i < len; i++) {
 				var vendor = vendors[i]
 
-				if(typeof (el || document.body).style[ vendor + propertyUC ] !== 'undefined') {
+				if (typeof (el || document.body).style[ vendor + propertyUC ] !== 'undefined')
 					return vendor + propertyUC
-				}
 			}
 
 			return property
@@ -744,24 +702,20 @@
 		 * Adds an event listener in a browser safe way.
 		 */
 		, bindEvent: function(element, ev, fn) {
-			if(element.addEventListener) {
+			if (element.addEventListener)
 				element.addEventListener(ev, fn, false)
-			}
-			else {
+			else
 				element.attachEvent('on' + ev, fn)
-			}
 		}
 
 		/**
 		 * Removes an event listener in a browser safe way.
 		 */
 		, unbindEvent: function(element, ev, fn) {
-			if(element.removeEventListener) {
+			if (element.removeEventListener)
 				element.removeEventListener(ev, fn, false)
-			}
-			else {
+			else
 				element.detachEvent('on' + ev, fn)
-			}
 		}
 
 		, bindEventOnce: function (element, ev, fn) {
@@ -778,7 +732,7 @@
 		 * menu DOM element.
 		 */
 		, dispatchEvent: function(element, type, properties) {
-			if(element) {
+			if (element) {
 				var event = document.createEvent('HTMLEvents', 1, 2)
 				event.initEvent(type, true, true)
 				FlipDiv.extend(event, properties)
