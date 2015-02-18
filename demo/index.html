@@ -7,7 +7,8 @@
 
 		<meta name="description" content="A three dimensional and space efficient 3D menu. With JavaScript, CSS 3 transformations and CSS transitions under the hood.">
 		<meta name="author" content="Erik Engi">
-		<meta name="viewport" content="width=800, user-scalable=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 
 		<link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 		<link rel="stylesheet" href="index.css">
@@ -35,13 +36,25 @@
 					, width: 260
 
 					// [optional] Distance from mouse (in pixels) when menu should open
-					, threshold: 40
+					, threshold: 5
+
+					// [optional] Threshold of the swipe gesture (in pixels)
+					, swipeThreshold: 40
+
+					// [optional] Distance from touch (in pixels) when menu should open
+					, touchAreaThreshold: 40
+
+					// [optional] Time frame (in milliseconds) after the swipe is ignored
+					, swipeCancelTimeout: 200
 
 					// [optional] Use mouse movement to automatically open/close
 					, mouse: true
 
 					// [optional] Use touch swipe events to open/close
-					, touch: true
+					, touch: {
+						enabled: true
+						, edgeOnly: true
+					}
 				});
 
 				// API Methods:
@@ -84,47 +97,37 @@
 		<div class="flipDiv-arrow"></div>
 
 		<div class="contents">
-			<article>
-				<h1>FlipDiv</h1>
-				<p>
-					A space efficient 3D menu with CSS transitions.
-				</p>
-				<p>
-					Move your mouse towards the arrow &mdash; or swipe in from the arrow if you're on a touch device &mdash; to open.
-					Test it with any page by appending a URL, like so:
-					<br><a href="?u=http://hakim.se">?u=http://hakim.se.</a>
-				</p>
-				<p>
-					FlipDiv can be positioned on any side of the screen:
-					<br><a href="?p=top">top</a>
-					 - <a href="?p=right">right</a>
-					 - <a href="?p=bottom">bottom</a>
-					 - <a href="?p=left">left</a>
-				</p>
-				<p>
-					Instructions and download at:
-					<br><a href="https://github.com/kireerik/FlipDiv/">github.com/kireerik/FlipDiv</a>
-				</p>
-				<p>
-					The name, <em>FlipDiv</em>, is not swedish, but <em>Meny</em> is. <a href="https://github.com/hakimel/Meny" target="_blank">Meny</a> is the original name of this cool menu concept. In the menu you can see Hakim El Hattab's great works and experiments. Feel free to check out them! Special thanks to Hakim El Hattab (<a href="http://twitter.com/hakimel">@hakimel</a>) and those who are contributed to the original project!
-				</p>
-				<small>
-					Created by Erik Engi
-					<br>Originally created by Hakim El Hattab <a href="https://github.com/hakimel" target="_blank">@hakimel</a> | <a href="http://hakim.se/">http://hakim.se</a>
-				</small>
-			</article>
-
-			<div class="sharing">
-				<a href="http://twitter.com/share" class="twitter-share-button" data-text="FlipDiv - A space efficient 3D menu with CSS transitions concept by @kireerik" data-url="./" data-count="small" data-related="hakimel"></a>
-
-				<iframe id="facebook-button" src="http://www.facebook.com/plugins/like.php?href=http://kireerik.github.io/FlipDiv/demo/&layout=button_count&show_faces=false&width=83&action=like&font=arial&colorscheme=light&height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:85px; height:24px; position: relative; top: 4px;" allowTransparency="true"></iframe>
-
-				<br><a href="http://twitter.com/share" class="twitter-share-button" data-text="FlipDiv - A space efficient 3D menu with CSS transitions concept by @hakimel" data-url="http://lab.hakim.se/meny" data-count="small" data-related="hakimel"></a>
-
-				<iframe id="facebook-button" src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Flab.hakim.se%2Fmeny%2F&layout=button_count&show_faces=false&width=83&action=like&font=arial&colorscheme=light&height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:85px; height:24px; position: relative; top: 4px;" allowTransparency="true"></iframe>
+			<div class="inner">
+				<article>
+					<h1>FlipDiv</h1>
+					<p>
+						A space efficient 3D menu with CSS transitions.
+					</p>
+					<p>
+						Move your mouse towards the arrow &mdash; or swipe in from the arrow if you're on a touch device &mdash; to open.
+						Test it with any page by appending a URL, like so:
+						<br><a href="?u=http://hakim.se">?u=http://hakim.se.</a>
+					</p>
+					<p>
+						FlipDiv can be positioned on any side of the screen:
+						<br><a href="?p=top">top</a>
+						 - <a href="?p=right">right</a>
+						 - <a href="?p=bottom">bottom</a>
+						 - <a href="?p=left">left</a>
+					</p>
+					<p>
+						Instructions and download at:
+						<br><a href="https://github.com/kireerik/FlipDiv/">github.com/kireerik/FlipDiv</a>
+					</p>
+					<p>
+						The name, <em>FlipDiv</em>, is not swedish, but <em>Meny</em> is. <a href="https://github.com/hakimel/Meny" target="_blank">Meny</a> is the original name of this cool menu concept. In the menu you can see Hakim El Hattab's great works and experiments. Feel free to check out them! Special thanks to Hakim El Hattab (<a href="http://twitter.com/hakimel">@hakimel</a>) and those who are contributed to the original project!
+					</p>
+					<small>
+						Created by Erik Engi
+						<br>Originally created by Hakim El Hattab <a href="https://github.com/hakimel" target="_blank">@hakimel</a> | <a href="http://hakim.se/">http://hakim.se</a>
+					</small>
+				</article>
 			</div>
-
-			<a href="https://github.com/kireerik/FlipDiv"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
 		</div>
 	</body>
 </html>

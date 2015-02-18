@@ -58,7 +58,16 @@ var flipDivMenu = FlipDiv.create({
 	, angle: 30
 
 	// The mouse distance from menu position which can trigger menu to open.
-	, threshold: 40
+	, threshold: 5
+
+	// Threshold of the swipe gesture (in pixels)
+	, swipeThreshold: 40
+
+	// Distance from touch (in pixels) when menu should open
+	, touchAreaThreshold: 40
+
+	// Time frame (in milliseconds) after the swipe is ignored
+	, swipeCancelTimeout: 200
 
 	// Width(in px) of the thin line you see on screen when menu is in closed position.
 	, overlap: 6
@@ -76,7 +85,10 @@ var flipDivMenu = FlipDiv.create({
 	, mouse: true
 
 	// Use touch swipe events to open/close
-	, touch: true
+	, touch: {
+		enabled: true
+		, edgeOnly: true
+	}
 })
 ```
 

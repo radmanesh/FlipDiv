@@ -49,7 +49,10 @@
 					width: 300
 					, height: 300
 					, position: POSITION_L
-					, threshold: 40
+					, threshold: 5
+					, swipeThreshold: 40
+					, touchAreaThreshold: 40
+					, swipeCancelTimeout: 200
 					, angle: 30
 					, overlap: 6
 					, transitionDuration: '0.5s'
@@ -74,6 +77,8 @@
 				, touchStartY = null
 				, touchMoveX = null
 				, touchMoveY = null
+				, swipeMethod = null
+				, swipeStartedTime
 				, isOpen = false
 				, isMouseDown = false
 
@@ -307,7 +312,7 @@
 				function bindEvents() {
 
 					if ('ontouchstart' in window)
-						if (config.touch) {
+						if (config.touch.enabled || config.touch === true) {
 							FlipDiv.bindEvent(document, 'touchstart', onTouchStart)
 							FlipDiv.bindEvent(document, 'touchend', onTouchEnd)
 						} else {
@@ -480,6 +485,7 @@
 					touchStartY = event.touches[0].clientY - indentY
 					touchMoveX = null
 					touchMoveY = null
+					swipeStartedTime = new Date().getTime()
 
 					FlipDiv.bindEvent(document, 'touchmove', onTouchMove)
 				}
@@ -488,23 +494,24 @@
 					touchMoveX = event.touches[0].clientX - indentX
 					touchMoveY = event.touches[0].clientY - indentY
 
-					var swipeMethod = null
+					swipeMethod = null
+					var edgeOnlyTouch = (config.touch === true || config.touch.edgeOnly === true) && !isOpen
 
 					// Check for swipe gestures in any direction
 
-					if (Math.abs(touchMoveX - touchStartX) > Math.abs(touchMoveY - touchStartY)) {
-						if (touchMoveX < touchStartX - config.threshold)
+					if (Math.abs(touchMoveY - touchStartY) < Math.abs(touchMoveX - touchStartX)) {
+						if (config.swipeThreshold < touchStartX - touchMoveX && (dom.wrapper.offsetWidth - config.touchAreaThreshold < touchStartX || !edgeOnlyTouch))
 							swipeMethod = onSwipeRight
-						else if (touchMoveX > touchStartX + config.threshold)
+						else if (config.swipeThreshold < touchMoveX - touchStartX && (touchStartX < config.touchAreaThreshold || !edgeOnlyTouch))
 							swipeMethod = onSwipeLeft
 					} else {
-						if (touchMoveY < touchStartY - config.threshold)
+						if (config.swipeThreshold < touchStartY - touchMoveY && (dom.wrapper.offsetHeight - config.touchAreaThreshold < touchStartY || !edgeOnlyTouch))
 							swipeMethod = onSwipeDown
-						else if (touchMoveY > touchStartY + config.threshold)
+						else if (config.swipeThreshold < touchMoveY - touchStartY && (touchStartY < config.touchAreaThreshold || !edgeOnlyTouch))
 							swipeMethod = onSwipeUp
 					}
 
-					if (swipeMethod && swipeMethod())
+					if (new Date().getTime() < swipeStartedTime + config.swipeCancelTimeout && swipeMethod && swipeMethod())
 						event.preventDefault()
 				}
 
@@ -512,7 +519,7 @@
 					FlipDiv.unbindEvent(document, 'touchmove', onTouchMove)
 
 					// If there was no movement this was a tap
-					if (touchMoveX === null && touchMoveY === null)
+					if (touchMoveX === null && touchMoveY === null && swipeMethod === null)
 						onTap()
 				}
 
